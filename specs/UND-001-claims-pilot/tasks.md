@@ -35,13 +35,13 @@
 
 - [X] T007 [US1] Create `backend/models.py` response models: `QueueRow`, `Claim` (with nullable `decision`, `sign_off`, `payment`), `Item`, `Document`, `Policy` (+ plan details), `Customer` (no contact fields), `Section`, `PolicyWording`, `Handler`, `Step`
 - [X] T008 [US1] Add read functions in `backend/claims.py` (`list_queue`, `get_claim`, `get_policy`, `get_customer`, `get_policy_wording`, `list_handlers`, `list_steps`) and routes in `backend/main.py` per contracts/api.md (operation_id + one-line docstring, 404 on unknown id); tests in `backend/tests/test_reads.py` (claim id order, amounts as `"420.00"`, customer has no `email`/`phone`/`address`/`date_of_birth`, 404s)
-- [ ] T009 [P] [US1] Create `dashboard/src/types.ts` (API types) and `dashboard/src/api.ts` (typed `getJson`/`postJson`, one function per route)
-- [ ] T010 [P] [US1] Create `dashboard/src/format.ts` (`money("1250.00") → "$1,250.00"`, dates, state and outcome labels, claim type labels); tests `dashboard/src/format.test.ts`
-- [ ] T011 [P] [US1] Create `dashboard/src/styles.css` with brand tokens from `docs/BRAND.md` (Instrument Sans/Serif, JetBrains Mono via Google Fonts link in `dashboard/index.html`; light/dark surfaces; state colours Sea Green/Marigold/Coral/Cerulean; rounded panels, no outlines)
-- [ ] T012 [US1] Create `dashboard/src/route.ts` (`useRoute()` over `location.hash`: queue, claim/:id, instructions) and update `dashboard/src/App.tsx` (header with nav, renders the page); update `dashboard/src/App.test.tsx`
-- [ ] T013 [P] [US1] Create `dashboard/src/components/StateBadge.tsx` and `OutcomeBadge.tsx` (distinct label + colour per state and outcome); tests `dashboard/src/components/badges.test.tsx`
-- [ ] T014 [US1] Create `dashboard/src/pages/QueuePage.tsx` (table: claim id link, customer, type, submitted, amount, state, outcome) ; tests `dashboard/src/pages/QueuePage.test.tsx` (mocked fetch)
-- [ ] T015 [US1] Create `dashboard/src/pages/ClaimPage.tsx` (summary, story, items, documents, policy, customer name + previous claims, "Claim not found" on 404) and `dashboard/src/components/DecisionPanel.tsx` (outcome, payout, calculation, explanation, cited sections, sign-off and payment if any); tests `dashboard/src/pages/ClaimPage.test.tsx`
+- [X] T009 [P] [US1] Create `dashboard/src/types.ts` (API types) and `dashboard/src/api.ts` (typed `getJson`/`postJson`, one function per route)
+- [X] T010 [P] [US1] Create `dashboard/src/format.ts` (`money("1250.00") → "$1,250.00"`, dates, state and outcome labels, claim type labels); tests `dashboard/src/format.test.ts`
+- [X] T011 [P] [US1] Create `dashboard/src/styles.css` with brand tokens from `docs/BRAND.md` (Instrument Sans/Serif, JetBrains Mono via Google Fonts link in `dashboard/index.html`; light/dark surfaces; state colours Sea Green/Marigold/Coral/Cerulean; rounded panels, no outlines)
+- [X] T012 [US1] Create `dashboard/src/route.ts` (`useRoute()` over `location.hash`: queue, claim/:id, instructions) and update `dashboard/src/App.tsx` (header with nav, renders the page); update `dashboard/src/App.test.tsx`
+- [X] T013 [P] [US1] Create `dashboard/src/components/StateBadge.tsx` and `OutcomeBadge.tsx` (distinct label + colour per state and outcome); tests `dashboard/src/components/badges.test.tsx`
+- [X] T014 [US1] Create `dashboard/src/pages/QueuePage.tsx` (table: claim id link, customer, type, submitted, amount, state, outcome) ; tests `dashboard/src/pages/QueuePage.test.tsx` (mocked fetch)
+- [X] T015 [US1] Create `dashboard/src/pages/ClaimPage.tsx` (summary, story, items, documents, policy, customer name + previous claims, "Claim not found" on 404) and `dashboard/src/components/DecisionPanel.tsx` (outcome, payout, calculation, explanation, cited sections, sign-off and payment if any); tests `dashboard/src/pages/ClaimPage.test.tsx`
 
 **Checkpoint 3**: `npm run check:python` and `npm run check:ts` green; `curl localhost:8000/api/claims` returns 25 rows; Playwright MCP: queue shows 25 `Waiting` rows, CLM-1001 page shows its 3 items and documents; commit "US1: queue and claim pages".
 
@@ -73,7 +73,7 @@
 - [X] T024 [US3] Implement `sign_off(claim_id, handler_id)` in `backend/claims.py` (waiting_for_sign_off; known handler with `can_approve_over_limit`; not signed before; records sign-off and calls `pay` in one transaction) and route `sign_off_claim` in `backend/main.py`
 - [X] T025 [US3] Tests `backend/tests/test_sign_off.py`: approve 1000.01 → waiting_for_sign_off, no payment; pay without sign-off refused (claim unchanged); 1000.00 needs no sign-off; sign-off unknown handler / flag false (handler row patched) / twice / wrong state refused; sign-off → decided, payment equals payout
 - [X] T026 [US3] Test in `agent/tests/test_agent.py`: stub agent approves 1500.00 then tries `pay_claim` → refusal is a `payment` step, claim stays waiting_for_sign_off, no payment, run not failed
-- [ ] T027 [US3] Create `dashboard/src/components/SignOffPanel.tsx` (handler select from `/api/handlers`, Sign off button, note "Sign-off releases the payment; it does not change the decision", error text on 409) and show it in `ClaimPage.tsx` when waiting for sign-off; tests `dashboard/src/components/SignOffPanel.test.tsx`
+- [X] T027 [US3] Create `dashboard/src/components/SignOffPanel.tsx` (handler select from `/api/handlers`, Sign off button, note "Sign-off releases the payment; it does not change the decision", error text on 409) and show it in `ClaimPage.tsx` when waiting for sign-off; tests `dashboard/src/components/SignOffPanel.test.tsx`
 
 **Checkpoint 5**: Python and TS checks green; Playwright MCP: a claim set to waiting for sign-off via API shows the panel, sign-off in 2 actions moves it to Decided with payment; commit "US3: handler sign-off".
 
@@ -83,8 +83,8 @@
 
 **Goal**: steps and states update on open pages within 3 s.
 
-- [ ] T028 [US4] Create `dashboard/src/usePolling.ts` (fetch every 1000 ms while mounted, stop on unmount); tests `dashboard/src/usePolling.test.ts` (fake timers)
-- [ ] T029 [US4] Create `dashboard/src/components/StepList.tsx` (ordered, time, kind label, content) and use polling for the claim, its steps (`ClaimPage.tsx`) and the queue (`QueuePage.tsx`); tests `dashboard/src/components/StepList.test.tsx` and polling update tests in the page tests
+- [X] T028 [US4] Create `dashboard/src/usePolling.ts` (fetch every 1000 ms while mounted, stop on unmount); tests `dashboard/src/usePolling.test.ts` (fake timers)
+- [X] T029 [US4] Create `dashboard/src/components/StepList.tsx` (ordered, time, kind label, content) and use polling for the claim, its steps (`ClaimPage.tsx`) and the queue (`QueuePage.tsx`); tests `dashboard/src/components/StepList.test.tsx` and polling update tests in the page tests
 
 **Checkpoint 6**: TS check green; Playwright MCP: with a claim page open, posting steps via API shows them within 3 s; commit "US4: live agent steps".
 
@@ -92,7 +92,7 @@
 
 ## Phase 7: User Story 5 — Read-only instructions (P3)
 
-- [ ] T030 [US5] Create `dashboard/src/pages/InstructionsPage.tsx` (pre-formatted text from `/api/instructions`, no edit controls) and nav link; tests `dashboard/src/pages/InstructionsPage.test.tsx`
+- [X] T030 [US5] Create `dashboard/src/pages/InstructionsPage.tsx` (pre-formatted text from `/api/instructions`, no edit controls) and nav link; tests `dashboard/src/pages/InstructionsPage.test.tsx`
 - [X] T031 [US5] Test in `backend/tests/test_reads.py` that no route other than GET exists for `/api/instructions` and no reset/release route exists (inspect `app.routes`)
 
 **Checkpoint 7**: checks green; Playwright MCP: `#/instructions` shows the text; commit "US5: instructions page".

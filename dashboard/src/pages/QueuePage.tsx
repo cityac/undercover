@@ -1,5 +1,6 @@
 import { claimType, date, money } from "../format";
 import { OutcomeBadge, StateBadge } from "../components/Badges";
+import { QueueSummary } from "../components/QueueSummary";
 import type { QueueRow } from "../types";
 import { usePolling } from "../usePolling";
 
@@ -14,6 +15,7 @@ export function QueuePage() {
   return (
     <section className="panel">
       <h2>Claims queue</h2>
+      <QueueSummary rows={rows} />
       <table>
         <thead>
           <tr>

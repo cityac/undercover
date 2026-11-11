@@ -48,3 +48,37 @@ export function claimType(type: string): string {
   const words = type.replaceAll("_", " ");
   return words.charAt(0).toUpperCase() + words.slice(1);
 }
+
+export const STATES: readonly State[] = [
+  "waiting",
+  "in_progress",
+  "waiting_for_sign_off",
+  "decided",
+];
+
+export function cents(amount: string): number {
+  return Math.round(Number(amount) * 100);
+}
+
+export function fromCents(total: number): string {
+  return (total / 100).toFixed(2);
+}
+
+export interface StateTotal {
+  state: State;
+  count: number;
+  total: string;
+}
+
+export function summarize(
+  rows: readonly { state: State; amount_claimed: string }[],
+): StateTotal[] {
+  return STATES.map((state) => {
+    const matching = rows.filter((row) => row.state === state);
+    const sum = matching.reduce(
+      (acc, row) => acc + cents(row.amount_claimed),
+      0,
+    );
+    return { state, count: matching.length, total: fromCents(sum) };
+  });
+}

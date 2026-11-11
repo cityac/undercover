@@ -12,7 +12,7 @@ test("the queue lists every claim as waiting", async ({ page }) => {
   await expect(rows.first()).toContainText("CLM-1001");
   await expect(rows.first()).toContainText("Maya Patel");
   await expect(rows.first()).toContainText("$420.00");
-  await expect(page.getByText("Waiting", { exact: true })).toHaveCount(25);
+  await expect(rows.getByText("Waiting", { exact: true })).toHaveCount(25);
 });
 
 test("a claim opens in full", async ({ page }) => {
@@ -35,4 +35,17 @@ test("a claim opens in full", async ({ page }) => {
 test("an unknown claim says so", async ({ page }) => {
   await page.goto("/#/claims/CLM-0000");
   await expect(page.getByText("Claim not found: CLM-0000")).toBeVisible();
+});
+
+test("the summary totals the starting queue by state", async ({ page }) => {
+  await page.goto("/");
+  const summary = page.getByRole("list", { name: "Queue summary" });
+  const cards = summary.getByRole("listitem");
+  await expect(cards).toHaveCount(4);
+  await expect(cards.nth(0)).toContainText("Waiting");
+  await expect(cards.nth(0)).toContainText("25 claims");
+  for (const index of [1, 2, 3]) {
+    await expect(cards.nth(index)).toContainText("0 claims");
+    await expect(cards.nth(index)).toContainText("$0.00");
+  }
 });

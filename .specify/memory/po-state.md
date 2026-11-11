@@ -44,6 +44,8 @@ Core hypothesis (`docs/SPEC.md`):
 | 2026-11-11 | Pilot money in integer cents; one guarded payment path; sign-off pays in the same transaction | Rules enforced by the system (constitution V) | Agent-side limit checks |
 | 2026-11-11 | E2E on an isolated backend :8001 / `e2e/e2e.db` and dashboard :5174 | Tests never touch the dev DB | Reusing :8000 |
 
+| 2026-11-11 | Queue summary (UND-002) added outside the course briefs | Explicit student request; dashboard only, derived from `GET /api/claims` | New summary API |
+
 ## Feature Dependencies
 
 ```
@@ -66,10 +68,15 @@ Core hypothesis (`docs/SPEC.md`):
 - E2E caught an SQLite cross-thread bug (500s under polling); fixed with a regression test.
 - PR #2 opened into `cityac/undercover` main.
 
+### Session 4 (2026-11-11) — student request
+- UND-002 Queue summary, scope S: four state cards with count and total over the queue table.
+- Separate fix PR #3: 5 s polling; agent returns 404 to the model instead of failing.
+
 ## Feature Log
 
 - {feature_id: UND-001 (#1 pilot), scope: L, ts: 2026-11-10} — recommended
 - {feature_id: UND-001 (#1 pilot), scope: L, ts: 2026-11-11} — COMPLETE, PR #2
+- {feature_id: UND-002 (queue summary), scope: S, ts: 2026-11-11} — COMPLETE
 
 ## Open Questions
 

@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor
+
 from fastapi.testclient import TestClient
 
 from backend.db import connect, db_path
@@ -21,3 +23,9 @@ def test_restart_keeps_work():
     with TestClient(app):
         pass
     assert connect().execute("SELECT content FROM steps").fetchone()[0] == "kept"
+
+
+def test_connection_works_across_threads():
+    conn = connect()
+    with ThreadPoolExecutor(1) as pool:
+        assert pool.submit(lambda: conn.execute("SELECT 1").fetchone()[0]).result() == 1

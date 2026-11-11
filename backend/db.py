@@ -93,8 +93,8 @@ def db_path() -> Path:
 
 
 def connect() -> sqlite3.Connection:
-    """Open the database with named rows and foreign keys on."""
-    conn = sqlite3.connect(db_path(), timeout=10)
+    """Open the database for one request, which FastAPI may serve across threads."""
+    conn = sqlite3.connect(db_path(), timeout=10, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn

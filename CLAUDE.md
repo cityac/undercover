@@ -39,9 +39,11 @@ FastAPI + SQLite, LangChain `create_agent` on OpenRouter, React + Vite + TypeScr
 uv + Python 3.12, Node 26. See `docs/TECH_STACK.md`.
 
 ## Active Technologies
+- Python 3.12 (uv), TypeScript strict on Node 26 + FastAPI, Pydantic 2, stdlib `sqlite3`, httpx, LangChain `create_agent` + `langchain-openai` (OpenRouter); React 19, Vite 8 (feature/UND-001-claims-pilot)
+- SQLite file (`UNDERCOVER_DB`, default `undercover.db`); amounts in integer cents (feature/UND-001-claims-pilot)
 
-- (none yet beyond the skeleton)
 
 ## Recent Changes
 
+- 2026-11-11: UND-001 Claims pilot built (backend rules, agent, dashboard, isolated e2e); see `docs/STATUS.md`.
 - 2026-11-10: Switched build workflow to PO + Spec Kit (`docs/SDD_ADAPTATION.md`).

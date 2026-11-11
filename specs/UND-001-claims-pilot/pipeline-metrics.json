@@ -1,0 +1,19 @@
+{
+  "feature_id": "UND-001",
+  "scope": "L",
+  "stages": {
+    "specify": {"ran": true, "files_created": ["spec.md", "checklists/requirements.md"]},
+    "clarify": {"ran": true, "decisions_count": 20, "consensus_agents": 5},
+    "quality_gate": {"ran": true, "iterations": 1, "all_pass": true},
+    "plan": {"ran": true, "files_created": ["plan.md", "research.md", "data-model.md", "contracts/api.md", "quickstart.md"]},
+    "tasks": {"ran": true, "task_count": 40},
+    "cost_risk_gate": {"ran": true, "halted": false, "report": "effort-report.md"},
+    "implement": {"ran": true, "tasks_completed": 40, "tasks_flagged": 0, "commits": 4},
+    "e2e": {"ran": true, "tests": 8, "passed": 8, "bugs_found": 1},
+    "review": {"ran": true, "pass": 5, "warn": 2, "fail": 0}
+  },
+  "tests": {"python": 66, "python_coverage": 98.84, "vitest": 15, "vitest_statements": 99.23, "playwright": 8},
+  "fix_iterations": 1,
+  "halted": false,
+  "ts": "2026-11-11T08:05:00Z"
+}

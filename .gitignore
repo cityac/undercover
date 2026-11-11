@@ -72,3 +72,7 @@ labs/*_desk/
 *.swp
 .DS_Store
 Thumbs.db
+
+# UnderCover databases (journals and the e2e store)
+undercover.db-*
+e2e/e2e.db*

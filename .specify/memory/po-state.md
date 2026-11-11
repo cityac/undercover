@@ -1,14 +1,13 @@
 # Product Owner State
 
-Last updated: 2026-11-10
+Last updated: 2026-11-11
 
 ## Current Priority
 
-**NEXT ACTION**: Feature #1 — Claims pilot (W1D3), scope L
-- **Why**: Only unlocked feature; `docs/SPEC.md` is its brief. Everything later builds on it.
-- **After that**: #2 Agent harness, once `labs/week1day5_product_HARNESS.md` is copied to `docs/HARNESS.md`.
-- **Command**: `/speckit.specify` with `docs/SPEC.md` as the description (controlled), or
-  `/speckit.pipeline "Claims pilot per docs/SPEC.md" --scope L --commit` (autonomous).
+**NEXT ACTION**: Feature #2 — Agent harness (W1D5), LOCKED until its brief is in `docs/`
+- **Why**: #1 Claims pilot is COMPLETE (PR #2 into the fork). #2 builds on it.
+- **Unlock**: copy `labs/week1day5_product_HARNESS.md` to `docs/HARNESS.md` when the course reaches W1D5, then `/productowner next`.
+- **Before that**: merge PR #2 (https://github.com/cityac/undercover/pull/2).
 
 ## MVP Definition
 
@@ -16,7 +15,7 @@ Core hypothesis (`docs/SPEC.md`):
 > "Can an AI agent handle claims straight through, as accurately as our handlers do?"
 
 **MVP = Features needed to test this hypothesis:**
-1. Claims pilot — PENDING
+1. Claims pilot — COMPLETE (accuracy vs handlers not measured yet; that comes with later features)
 
 **MVP does NOT require**: claims manual, sign-in, real payments, customer messages ("Not for now" in `docs/SPEC.md`).
 
@@ -25,8 +24,10 @@ Core hypothesis (`docs/SPEC.md`):
 ### Completed
 - Skeleton: `GET /api/health`; agent `run(claim_id, thread_id)` with one health tool; one dashboard page; one e2e test; lefthook + `npm run check`.
 
+- #1 Claims pilot (UND-001): backend rules + SQLite, agent with tool allow-list, dashboard, isolated e2e. See `docs/STATUS.md`.
+
 ### Not Yet Built
-- All 9 roadmap features (1 PENDING, 8 LOCKED).
+- 8 roadmap features (#2–#9), all LOCKED.
 
 ## Decision Log
 
@@ -39,6 +40,9 @@ Core hypothesis (`docs/SPEC.md`):
 | 2026-11-10 | Push + PR allowed, only into `cityac/undercover` | Student's override of "Never push" | No push |
 | 2026-11-10 | No cost-research subagents; cost notes taken from course guides | Stack and models are fixed by `docs/TECH_STACK.md`; course budgets ~$10 | Market price research |
 | 2026-11-10 | `CLAUDE.md` created (did not exist); `AGENTS.md` left as Ed's | Avoid merge conflicts on `git pull upstream` | Editing AGENTS.md |
+
+| 2026-11-11 | Pilot money in integer cents; one guarded payment path; sign-off pays in the same transaction | Rules enforced by the system (constitution V) | Agent-side limit checks |
+| 2026-11-11 | E2E on an isolated backend :8001 / `e2e/e2e.db` and dashboard :5174 | Tests never touch the dev DB | Reusing :8000 |
 
 ## Feature Dependencies
 
@@ -57,16 +61,22 @@ Core hypothesis (`docs/SPEC.md`):
 - Recommended #1 Claims pilot, scope L. No new briefs in `docs/`, no `specs/` yet.
 - Handed off to `/speckit.specify`.
 
+### Session 3 (2026-11-10 → 2026-11-11) — next (autonomous)
+- `/speckit.pipeline` for UND-001, scope L: spec, 5-agent consensus, quality gate, plan, 40 tasks, implement, e2e, review (5 PASS / 2 WARN / 0 FAIL).
+- E2E caught an SQLite cross-thread bug (500s under polling); fixed with a regression test.
+- PR #2 opened into `cityac/undercover` main.
+
 ## Feature Log
 
 - {feature_id: UND-001 (#1 pilot), scope: L, ts: 2026-11-10} — recommended
+- {feature_id: UND-001 (#1 pilot), scope: L, ts: 2026-11-11} — COMPLETE, PR #2
 
 ## Open Questions
 
-- Commit `.specify/`, `.claude/commands/`, `CLAUDE.md` and the `docs/` changes to `main` of the fork?
+- Fix the two review WARNs (dashboard one-shot fetches without `.catch`) in #2 or separately?
 
 ## Risks Being Tracked
 
-1. Untracked Spec Kit files lost on branch switch — commit them.
+1. Local Node is v22 by default; the project needs Node 26 (`nvm use 26`) or `npm install` fails on engines.
 2. `data/evals/` leakage through specs or consensus prompts — constitution IV.
 3. Week 3 AWS costs — teardown after every lab.

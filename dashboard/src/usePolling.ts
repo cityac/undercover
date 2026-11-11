@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get } from "./api";
 
-export const POLL_MS = 1000;
+export const POLL_MS = 5000;
 
 export interface Polled<T> {
   data: T | null;

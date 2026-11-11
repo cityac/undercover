@@ -5,7 +5,7 @@ The claims pilot (UND-001, `specs/UND-001-claims-pilot/`) is built.
 - `backend/`: FastAPI on SQLite (`UNDERCOVER_DB`, default `undercover.db`). It loads `data/` into an empty store on first start and keeps all work across restarts. It owns every rule: the claim states, the decision checks (outcome, payout cap, policy sections), the one guarded payment path, and the $1,000 sign-off. It never reads `data/evals/`.
 - `backend/instructions.md`: the agent's instructions, served read only at `/api/instructions`.
 - `agent/`: the UnderCover Agent, `run(claim_id, thread_id)`. Its tools read the claim, the policy, the customer's history and the wording, record a decision and pay. It has no tool to sign off, release or reset. Each step is recorded on the claim, and a failed run returns the claim to the queue.
-- `dashboard/`: the queue with states and outcomes, each claim in full (decision, calculation, cited sections, sign-off, payment, live agent steps), sign-off by a handler for payouts over $1,000, and the agent's instructions. It polls every second.
+- `dashboard/`: the queue with states and outcomes, each claim in full (decision, calculation, cited sections, sign-off, payment, live agent steps), sign-off by a handler for payouts over $1,000, and the agent's instructions. It polls every 5 seconds.
 - `e2e/`: Playwright on its own backend (port 8001, `e2e/e2e.db`) and dashboard (port 5174), with a scripted agent driving the API.
 
 ## How to run

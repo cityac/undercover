@@ -81,12 +81,12 @@
 
 ## Phase 6: User Story 4 — Live steps (P2)
 
-**Goal**: steps and states update on open pages within 3 s.
+**Goal**: steps and states update on open pages within 6 s.
 
 - [X] T028 [US4] Create `dashboard/src/usePolling.ts` (fetch every 1000 ms while mounted, stop on unmount); tests `dashboard/src/usePolling.test.ts` (fake timers)
 - [X] T029 [US4] Create `dashboard/src/components/StepList.tsx` (ordered, time, kind label, content) and use polling for the claim, its steps (`ClaimPage.tsx`) and the queue (`QueuePage.tsx`); tests `dashboard/src/components/StepList.test.tsx` and polling update tests in the page tests
 
-**Checkpoint 6**: TS check green; Playwright MCP: with a claim page open, posting steps via API shows them within 3 s; commit "US4: live agent steps".
+**Checkpoint 6**: TS check green; Playwright MCP: with a claim page open, posting steps via API shows them within 6 s; commit "US4: live agent steps".
 
 ---
 
@@ -105,7 +105,7 @@
 - [X] T033 Update `dashboard/vite.config.ts` proxy target to `process.env.API_URL ?? "http://127.0.0.1:8000"`; update `playwright.config.ts` webServers: backend `uv run -m uvicorn backend.main:app --port 8001` with `env: { UNDERCOVER_DB: "e2e/e2e.db" }`, dashboard `npx vite dashboard --port 5174 --strictPort` with `env: { API_URL: "http://127.0.0.1:8001" }`, `baseURL` 5174, `workers: 1`
 - [X] T034 Create `e2e/helpers.ts` (`reset()` runs `uv run -m backend.seed` with `UNDERCOVER_DB=e2e/e2e.db` via `execFileSync` env; scripted agent: `start`, `decision`, `payment`, `steps` through `request`)
 - [X] T035 [P] Create `e2e/queue.spec.ts` (25 rows, Waiting, money format, open CLM-1001 shows items/documents/policy, unknown id → Claim not found)
-- [X] T036 [P] Create `e2e/decision.spec.ts` (scripted approve ≤ limit + pay → Decided, Approve badge, calculation, explanation, section titles; scripted decline/refer badges; steps appear live within 3 s)
+- [X] T036 [P] Create `e2e/decision.spec.ts` (scripted approve ≤ limit + pay → Decided, Approve badge, calculation, explanation, section titles; scripted decline/refer badges; steps appear live within 6 s)
 - [X] T037 [P] Create `e2e/sign-off.spec.ts` (scripted approve 1500.00 → Waiting for sign-off; API pay refused; choose handler + Sign off → Decided with payment)
 - [X] T038 [P] Create `e2e/instructions.spec.ts` (text visible, no textbox or save button); keep `e2e/health.spec.ts`
 - [X] T039 Update `docs/STATUS.md` (what is built, how to run: dev, agent, release, seed, check) and `README`-level notes only if needed

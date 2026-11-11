@@ -15,7 +15,7 @@ Turn the hello-world skeleton into the claims pilot: a FastAPI + SQLite backend 
 **Testing**: pytest + coverage ≥ 80% (TestClient, stub chat model), vitest + Testing Library ≥ 80%, Playwright e2e on isolated backend :8001 / dashboard :5174
 **Target Platform**: local machine (macOS / Windows / Linux)
 **Project Type**: web application (backend + dashboard) plus an agent CLI
-**Performance Goals**: steps and state changes visible within 3 s (1 s polling)
+**Performance Goals**: steps and state changes visible within 6 s (5 s polling)
 **Constraints**: no real model in tests; agent reaches only the HTTP API; no data from `data/evals/`; Windows-safe scripts
 **Scale/Scope**: 25 claims, 3 handlers, 1 operator
 
@@ -69,7 +69,7 @@ dashboard/src/
 ├── api.ts             # typed fetch wrappers
 ├── types.ts           # API types
 ├── format.ts          # money/date/label formatting
-├── usePolling.ts      # 1 s polling hook
+├── usePolling.ts      # 5 s polling hook
 ├── pages/QueuePage.tsx, ClaimPage.tsx, InstructionsPage.tsx
 ├── components/StateBadge.tsx, OutcomeBadge.tsx, DecisionPanel.tsx, SignOffPanel.tsx, StepList.tsx
 ├── styles.css         # brand tokens, light/dark

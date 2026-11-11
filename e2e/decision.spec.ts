@@ -15,13 +15,13 @@ test("an approval within the limit is paid and shown with its steps", async ({
   await agent.start();
   await agent.step("read", "get_claim: CLM-1001");
   await expect(page.getByText("get_claim: CLM-1001")).toBeVisible({
-    timeout: 3000,
+    timeout: 7000,
   });
-  await expect(page.getByText("In progress")).toBeVisible({ timeout: 3000 });
+  await expect(page.getByText("In progress")).toBeVisible({ timeout: 7000 });
   await agent.decide({ outcome: "approve", payout: "420.00", sections: [3] });
   await agent.pay("420.00");
   await expect(page.getByText("Decided", { exact: true })).toBeVisible({
-    timeout: 3000,
+    timeout: 7000,
   });
   await expect(page.getByText("Approve", { exact: true })).toBeVisible();
   await expect(

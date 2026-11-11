@@ -8,7 +8,7 @@ into `docs/` (course rule: never build ahead). Descriptions of locked features c
 ## Phase 1: Week 1 - AI Engineer
 | # | Feature | Status | Description | Priority | Spec |
 |---|---------|--------|-------------|----------|------|
-| 1 | **Claims pilot** (W1D3) | PENDING | From `docs/SPEC.md`: FastAPI+SQLite backend seeded from `data/`; UnderCover Agent (`run(claim_id, thread_id)`) reads claim, policy, history and policy wording via API, approves/declines/refers, computes payout, explains in 2-3 sentences with the policy section; dashboard: queue with states (waiting, in progress, waiting for sign-off, decided), claim detail with decision and reasons, live agent steps, read-only agent instructions; payout > $1,000 blocked until handler sign-off | P1 | — |
+| 1 | **Claims pilot** (W1D3) | COMPLETE | From `docs/SPEC.md`: FastAPI+SQLite backend seeded from `data/`; UnderCover Agent (`run(claim_id, thread_id)`) reads claim, policy, history and policy wording via API, approves/declines/refers, computes payout, explains in 2-3 sentences with the policy section; dashboard: queue with states (waiting, in progress, waiting for sign-off, decided), claim detail with decision and reasons, live agent steps, read-only agent instructions; payout > $1,000 blocked until handler sign-off | P1 | `specs/UND-001-claims-pilot/` (PR #2) |
 | 2 | **Agent harness** (W1D5, `HARNESS.md`) | LOCKED | The agent's tools, middleware and instructions | P1 | — |
 
 ## Phase 2: Week 2 - AI Architect

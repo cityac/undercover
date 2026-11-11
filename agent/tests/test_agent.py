@@ -128,3 +128,24 @@ def test_model_name(monkeypatch):
     assert main.model().model_name == "openai/gpt-6-luna"
     monkeypatch.setenv("MODEL_NAME", "openrouter/free")
     assert main.model().model_name == "openrouter/free"
+
+
+def test_a_wrong_id_is_told_to_the_model_not_fatal(backend):
+    assert main.get_policy.invoke({"policy_id": "CLM-1001"}).startswith("Not found")
+    llm = stub(
+        calls(("get_policy", {"policy_id": "CLM-1001"})),
+        calls(("get_policy", {"policy_id": "POL-2001"})),
+        calls(("record_decision", DECISION)),
+        calls(("pay_claim", {"claim_id": "CLM-1001", "amount": "420.00"})),
+        AIMessage("Done."),
+    )
+    assert main.run("CLM-1001", "run-1", llm) == "decided"
+    steps = backend.get("/api/claims/CLM-1001/steps").json()
+    assert any("Not found" in s["content"] for s in steps)
+    assert "error" not in kinds(backend)
+
+
+def test_instructions_say_to_read_the_claim_first(backend):
+    text = backend.get("/api/instructions").json()["text"]
+    assert "`get_claim` first" in text
+    assert "Never guess an id" in text

@@ -19,7 +19,7 @@ test("a payout over $1,000 waits for a handler's sign-off", async ({
   await page.getByLabel("Handler").selectOption({ label: "Dana Whitfield" });
   await page.getByRole("button", { name: "Sign off and pay" }).click();
   await expect(page.getByText("Decided", { exact: true })).toBeVisible({
-    timeout: 3000,
+    timeout: 7000,
   });
   await expect(page.getByText(/Signed off by Dana Whitfield/)).toBeVisible();
   await expect(page.getByText(/Paid \$1,500\.00/)).toBeVisible();

@@ -28,9 +28,11 @@ def backend() -> httpx.Client:
 
 
 def call(method: str, path: str, body: dict[str, Any] | None = None) -> Any:
-    """Call the backend; return the JSON, or the refusal text for a 409 or 422."""
+    """Call the backend; return the JSON, or text the model can act on for a 4xx."""
     with backend() as client:
         response = client.request(method, path, json=body)
+    if response.status_code == httpx.codes.NOT_FOUND:
+        return f"Not found: {response.json()['detail']}"
     if response.status_code in {409, 422}:
         return f"Refused: {response.json()['detail']}"
     response.raise_for_status()

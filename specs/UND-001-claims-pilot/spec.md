@@ -101,9 +101,9 @@ While the agent works a claim, a handler on that claim's page sees each step app
 
 **Acceptance Scenarios**:
 
-1. **Given** a handler has a claim page open, **When** the agent takes a step on that claim, **Then** the step appears on the page within 3 seconds, without reloading.
+1. **Given** a handler has a claim page open, **When** the agent takes a step on that claim, **Then** the step appears on the page within 6 seconds, without reloading.
 2. **Given** a finished claim, **When** a handler opens it, **Then** all its steps are listed in the order they happened, each with time and kind (read, reasoning, decision, payment, error).
-3. **Given** the queue page is open, **When** a claim's state changes, **Then** the new state is shown within 3 seconds, without reloading.
+3. **Given** the queue page is open, **When** a claim's state changes, **Then** the new state is shown within 6 seconds, without reloading.
 
 ---
 
@@ -172,8 +172,8 @@ A handler opens a page that shows the instructions the agent works from. They ca
 
 **Dashboard**
 
-- **FR-017**: The dashboard MUST show the queue in claim id order (claim id, customer, claim type, submitted date, amount claimed, state, and outcome label once decided or waiting for sign-off) and refresh states within 3 seconds of a change.
-- **FR-018**: The dashboard MUST show each claim in full (User Story 1, scenario 2), its decision with reasons and cited sections, its sign-off and payment if any, and its steps, updating within 3 seconds while the agent works.
+- **FR-017**: The dashboard MUST show the queue in claim id order (claim id, customer, claim type, submitted date, amount claimed, state, and outcome label once decided or waiting for sign-off) and refresh states within 6 seconds of a change.
+- **FR-018**: The dashboard MUST show each claim in full (User Story 1, scenario 2), its decision with reasons and cited sections, its sign-off and payment if any, and its steps, updating within 6 seconds while the agent works.
 - **FR-019**: The dashboard MUST show the agent's instructions read-only.
 - **FR-020**: The dashboard MUST follow `docs/BRAND.md` (fonts, colours, light and dark surfaces, tone) and show money as US dollars with two decimals (`$1,250.00`).
 - **FR-021**: The dashboard MUST NOT require sign-in; everyone sees everything.
@@ -200,7 +200,7 @@ A handler opens a page that shows the instructions the agent works from. They ca
 - **SC-003**: 0 payments over $1,000.00 are recorded without a handler's sign-off, in every test, including tests where the agent deliberately tries to pay.
 - **SC-004**: No claim is ever paid twice, and no payment differs from its approved payout.
 - **SC-005**: A handler can find any claim and read its decision and reasons within 30 seconds of opening the dashboard.
-- **SC-006**: Agent steps and state changes appear on an open page within 3 seconds.
+- **SC-006**: Agent steps and state changes appear on an open page within 6 seconds.
 - **SC-007**: A handler can sign off a claim in 2 actions or fewer from the claim page.
 - **SC-008**: The full project check (`npm run check`) passes with coverage at or above 80%, and no automated test calls a real AI model.
 

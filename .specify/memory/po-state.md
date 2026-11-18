@@ -1,13 +1,13 @@
 # Product Owner State
 
-Last updated: 2026-11-11
+Last updated: 2026-11-18
 
 ## Current Priority
 
-**NEXT ACTION**: Feature #2 — Agent harness (W1D5), LOCKED until its brief is in `docs/`
-- **Why**: #1 Claims pilot is COMPLETE (PR #2 into the fork). #2 builds on it.
-- **Unlock**: copy `labs/week1day5_product_HARNESS.md` to `docs/HARNESS.md` when the course reaches W1D5, then `/productowner next`.
-- **Before that**: merge PR #2 (https://github.com/cityac/undercover/pull/2).
+**NEXT ACTION**: Feature #2 — Agent harness (W1D5, `docs/HARNESS.md`), PENDING, scope L, controlled mode
+- **Why**: #1 pilot and #1a queue summary are COMPLETE and merged; #2 is next in the strict sequence and its brief is now in `docs/`.
+- **Next step**: `/speckit.specify` with the harness description (feature `UND-003-agent-harness`).
+- **Brief's "write to docs/PLAN_HARNESS.md"**: mapped to `specs/UND-003-agent-harness/` (ticks in `tasks.md`), per `docs/SDD_ADAPTATION.md`.
 
 ## MVP Definition
 
@@ -27,7 +27,8 @@ Core hypothesis (`docs/SPEC.md`):
 - #1 Claims pilot (UND-001): backend rules + SQLite, agent with tool allow-list, dashboard, isolated e2e. See `docs/STATUS.md`.
 
 ### Not Yet Built
-- 8 roadmap features (#2–#9), all LOCKED.
+- #2 Agent harness — PENDING (unlocked 2026-11-18).
+- 7 roadmap features (#3–#9), LOCKED.
 
 ## Decision Log
 
@@ -45,6 +46,8 @@ Core hypothesis (`docs/SPEC.md`):
 | 2026-11-11 | E2E on an isolated backend :8001 / `e2e/e2e.db` and dashboard :5174 | Tests never touch the dev DB | Reusing :8000 |
 
 | 2026-11-11 | Queue summary (UND-002) added outside the course briefs | Explicit student request; dashboard only, derived from `GET /api/claims` | New summary API |
+| 2026-11-18 | Harness plan lives in `specs/UND-003-agent-harness/`, not `docs/PLAN_HARNESS.md` | Same Spec Kit mapping as the pilot (`docs/SDD_ADAPTATION.md`) | Writing Ed's PLAN_HARNESS.md too |
+| 2026-11-18 | Harness classified scope L | >500 LOC, >15 files, DB change (to-do list, attempt counts), new UX, touches payment path | M |
 
 ## Feature Dependencies
 
@@ -71,6 +74,10 @@ Core hypothesis (`docs/SPEC.md`):
 ### Session 4 (2026-11-11) — student request
 - UND-002 Queue summary, scope S: four state cards with count and total over the queue table.
 - Separate fix PR #3: 5 s polling; agent returns 404 to the model instead of failing.
+
+### Session 5 (2026-11-18) — Harness unlocked
+- Student copied `labs/week1day5_product_HARNESS.md` to `docs/HARNESS.md`.
+- Roadmap #2 LOCKED → PENDING; `/productowner next --controlled` recommends it, scope L.
 
 ## Feature Log
 
